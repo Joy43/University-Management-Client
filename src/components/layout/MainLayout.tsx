@@ -2,7 +2,17 @@ import { Layout, Menu, MenuProps } from 'antd';
 import { NavLink, Outlet } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
-
+const items=[
+  {key:'1',
+    label:'Dashboard'
+  },
+  {key:'2',
+    label:'Users'
+  },
+  {key:'3',
+    label:'Products'
+  },
+]
 const MainLayout = () => {
   return (
     <Layout style={{ height: '100vh' }}>
@@ -26,12 +36,13 @@ const MainLayout = () => {
             alignItems: 'center',
           }}
         >
-          <h1>PH Uni</h1>
+          <h1>Univesity</h1>
         </div>
         <Menu
           theme="dark"
           mode="inline"
           defaultSelectedKeys={['4']}
+          items={items}
           
         />
       </Sider>
