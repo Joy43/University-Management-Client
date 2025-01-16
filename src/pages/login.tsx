@@ -1,50 +1,48 @@
-import { Button } from "antd"
-import { useForm } from "react-hook-form"
-import { useLoginMutation } from "../redux/features/auth/authApi"
-import Password from "antd/es/input/Password"
+import { Button } from 'antd';
+import { useForm } from 'react-hook-form';
+import { useLoginMutation } from '../redux/features/auth/authApi';
+
+import { setUser } from '../redux/features/auth/authSlice';
+import { verifyToken } from '../utils/varifyToken';
+import { useAppDispatch } from '../redux/features/hooks';
 
 
-const login = () => {
-  const{register,handleSubmit}=useForm({
-    defaultValues:{
-      userId:'A-002',
-      password:'admin123'
-    }
-  })
-  interface FormData {
-    userId: string;
-    password: string;
-  }
+const Login = () => {
+  const dispatch = useAppDispatch();
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      userId: 'A-0002',
+      password: 'admin123',
+    },
+  });
 
-  interface UserInfo {
-    id: string;
-    password: string;
-  }
+  const [login, { error:any }] = useLoginMutation();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    const userInfo: UserInfo = {
+  const onSubmit = async (data:any) => {
+    const userInfo = {
       id: data.userId,
       password: data.password,
     };
-    login(userInfo);
+
+    const res = await login(userInfo).unwrap();
+    const user = verifyToken(res.data.accessToken);
+
+    dispatch(setUser({ user: user, token: res.data.accessToken }));
   };
-  const [login,{data,error}]=useLoginMutation();
+
   return (
-    <form  className="max-auto" onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <label htmlFor="id"{...register('userId')}>ID</label>
-        <input type="text"id="id"/>
+        <label htmlFor="id">ID: </label>
+        <input type="text" id="id" {...register('userId')} />
       </div>
       <div>
-        <label htmlFor="password">password</label>
-        <input type="text"id="password" {...register('password')}/>
+        <label htmlFor="password">Password: </label>
+        <input type="text" id="password" {...register('password')} />
       </div>
-      <Button htmlType="submit" >Resgister</Button>
+      <Button htmlType="submit">Login</Button>
     </form>
-  )
-}
+  );
+};
 
-export default login
-
-
+export default Login;
