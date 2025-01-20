@@ -2,10 +2,11 @@ import { Layout, Menu } from 'antd';
 
 import { adminPaths } from '../../routes/admin.routes';
 import { facultyPaths } from '../../routes/faculty.routes';
-import { useAppSelector } from '../../redux/features/hooks';
-import { sidebarItemsGenerator } from '../../utils/sidebarItemGenerator';
 import { studentPaths } from '../../routes/student.routes';
 
+import { selectCurrentUser } from '../../redux/features/auth/authSlice';
+import { useAppSelector } from '../../redux/features/hooks';
+import { sidebarItemsGenerator } from '../../utils/sidebarItemGenerator';
 
 const { Sider } = Layout;
 

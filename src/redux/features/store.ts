@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-
+import authReducer from '../features/auth/authSlice';
 import {
   persistReducer,
   persistStore,
@@ -39,7 +39,3 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
-function authReducer(state: unknown, action: Action): unknown {
-  throw new Error('Function not implemented.');
-}
-
