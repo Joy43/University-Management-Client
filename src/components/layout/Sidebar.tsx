@@ -5,8 +5,8 @@ import { facultyPaths } from '../../routes/faculty.routes';
 import { studentPaths } from '../../routes/student.routes';
 
 import { selectCurrentUser } from '../../redux/features/auth/authSlice';
-import { useAppSelector } from '../../redux/features/hooks';
 import { sidebarItemsGenerator } from '../../utils/sidebarItemGenerator';
+import { useAppSelector } from '../../redux/features/hooks';
 
 const { Sider } = Layout;
 
@@ -37,7 +37,11 @@ const Sidebar = () => {
   }
 
   return (
-    <Sider breakpoint="lg" collapsedWidth="0">
+    <Sider
+      breakpoint="lg"
+      collapsedWidth="0"
+      style={{ height: '100vh', position: 'sticky', top: '0', left: '0' }}
+    >
       <div
         style={{
           color: 'white',
